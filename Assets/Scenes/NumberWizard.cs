@@ -10,36 +10,51 @@ public class NumberWizard : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Welcome to Number Wizard");
-        Debug.Log("Pick a number, but don't tell me what it is.");
-        Debug.Log("The highest posible number is: " + max);
-        Debug.Log("The lowest possible number is: " + min);
-        Debug.Log("Tell me if your number is higher or lower than my guess.");
-        Debug.Log("Push up = Higher,  Push down = Lower, Push Enter for correct");
+        StartGame();
     }
-
+    void StartGame()
+    {
+        max = 1000;
+        min = 1;
+        guess = 500;
+        Debug.Log("Hello I am the Wiz!!");
+        Debug.Log("Think of a number between " + min + " and " + max + ", but don't tell me what your number is.");
+        Debug.Log("Do you have your number yet? Press Y for Yes when you are ready.");
+        max = max + 1;
+    }
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            Debug.Log("Excellent! Let me start guessing. Is your number " + guess + "?");
+            Debug.Log("If it is higher than " + guess + ", press the Up arrow. If it is lower, press the Down arrow. If my guess is correct, press Enter.");
+        }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            Debug.Log("Up Arrow key was pressed.");
             min = guess;
-            Debug.Log(guess);
+            NextGuess();
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            Debug.Log("Down Arrow key was pressed.");
-            max = guess; 
-            Debug.Log(guess);
+            max = guess;
+            NextGuess();
         }
         else if (Input.GetKeyDown(KeyCode.Return))
         {
-            Debug.Log("Enter key was pressed.");
+            Debug.Log("I got it! Your number is " + guess + ". Do you want to play again? Press Space to restart.");
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Debug.Log("Let's play again!");
+                StartGame();
+            } 
+
         }
 
-
-
-
     }
+     void NextGuess()
+        {
+            guess = (max + min) / 2;
+            Debug.Log("Okay, let me try again. Is your number " + guess + "?");
+        }
 }
